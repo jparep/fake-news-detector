@@ -1,0 +1,12 @@
+{
+    "name": "fake-news-detector",
+    "env": {
+      "FLASK_ENV": "production",
+      "DEBUG": "False",
+      "SECRET_KEY": {
+        "description": "My Flask secret key",
+        "generator": "secret"
+      }
+    }
+  }
+  
