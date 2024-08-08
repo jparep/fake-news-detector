@@ -1,0 +1,100 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Conda environment files
+*.conda
+*.env
+*.venv
+*.pyenv
+*.virtualenv
+
+# Local environment directories
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Installed package directories
+lib/
+lib64/
+parts/
+sdist/
+wheels/
+pip-wheel-metadata/
+
+# Packages
+*.egg
+*.egg-info/
+dist/
+build/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cove
+
+# Flask specific files
+instance/
+.webassets-cache
+*.log
+
+# Heroku specific files
+.heroku/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# macOS
+.DS_Store
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Environment Variables
+.env
+.env.*
+
+# Database files
+*.sqlite3
+
+# Runtime files
+runtime.txt
+
+# Python virtual environments
+.env/
+.venv/
+
+# Logs
+*.log
+*.out
+*.err
+
+# Docker files
+docker-compose.yml
+Dockerfile
+
+# Coverage files
+.coverage
+coverage/
+.coverage.*
+.cache
+
+# Pyre type checker
+.pyre/
