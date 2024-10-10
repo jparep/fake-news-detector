@@ -1,6 +1,5 @@
 Flask==3.0.3
 Flask-RESTful==0.3.10
-gunicorn==22.0.0
 scikit-learn==1.4.2
 joblib==1.4.2
 transformers==4.44.0
