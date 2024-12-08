@@ -10,11 +10,16 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
         <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Fake News Detection</h1>
+        {% if error %}
+        <p class="text-red-500 text-center mb-4">{{ error }}</p>
+        {% endif %}
         <form action="/predict" method="post" class="space-y-6">
             <!-- News Text Input -->
             <div>
                 <label for="news-text" class="block text-gray-700 font-medium text-base">Enter news text:</label>
-                <textarea id="news-text" name="text" rows="5" required placeholder="Enter the news text here"
+                <textarea id="news-text" name="text" rows="5" required 
+                    placeholder="Enter the news text to analyze for fake or real detection"
+                    aria-label="News text input"
                     class="mt-2 block w-full h-24 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-50"></textarea>
             </div>
             <!-- Submit Button -->

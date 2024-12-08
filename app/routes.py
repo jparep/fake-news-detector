@@ -19,11 +19,15 @@ def predict():
         # Get input text from the form
         text = request.form.get('text', '').strip()
         if not text:
-            raise ValueError("No input text provided.")
+            raise ValueError("No input text provided. Please enter some text.")
 
         # Access model and vectorizer from app configuration
         model = current_app.config['MODEL']
         vectorizer = current_app.config['VECTORIZER']
+
+        # Log input (only in debug mode, avoid logging sensitive input in production)
+        if current_app.config["DEBUG"]:
+            current_app.logger.debug(f"Input text: {text}")
 
         # Vectorize the input text
         vectorized_text = vectorizer.transform([text])
@@ -39,12 +43,16 @@ def predict():
         # Prepare result
         prediction_result = {
             'label': prediction_label,
-            'probability': f"{prediction_proba[0][prediction[0]] * 100:.2f}%"  # Format as a percentage
+            'probability': f"{max(prediction_proba[0]) * 100:.2f}%"  # Use max probability for clarity
         }
+
+        # Log prediction result in debug mode
+        if current_app.config["DEBUG"]:
+            current_app.logger.debug(f"Prediction result: {prediction_result}")
 
         # Render result.html with prediction results
         return render_template('result.html', prediction=prediction_result)
     except Exception as e:
         # Log error and return to the home page with an error message
         current_app.logger.error(f"Prediction error: {e}")
-        return render_template('index.html', error=str(e))
+        return render_template('index.html', error="An error occurred while processing your request. Please try again.")

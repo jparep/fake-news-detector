@@ -11,8 +11,14 @@
     <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
         <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Prediction Result</h1>
         <p class="text-lg text-gray-700 text-center mb-4">The detected news label is:</p>
-        <p class="text-3xl font-bold text-blue-500 text-center">{{ prediction['label'] }}</p>
-        <a href="/" class="block text-center text-blue-500 hover:underline mt-6">Make another prediction</a>
+        <p class="text-3xl font-bold text-blue-500 text-center mb-4" aria-live="polite">{{ prediction['label'] }}</p>
+        {% if prediction['probability'] %}
+        <p class="text-sm text-gray-600 text-center mb-4">Confidence: {{ prediction['probability'] }}</p>
+        {% endif %}
+        <a href="/" 
+            class="block text-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+            Make Another Prediction
+        </a>
     </div>
 </body>
 </html>
