@@ -1,16 +1,13 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, current_app
 import joblib
 import numpy as np
-import os
 
+# Import the Flask app instance from the create_app factory
 app = Flask(__name__)
 
-# Load the pre-trained model and vectorizer
-model_path = os.getenv('MODEL_PATH', './models/model.joblib')
-vectorizer_path = os.getenv('VECTORIZER_PATH', './models/vectorizer.joblib')
-
-model = joblib.load(model_path)
-vectorizer = joblib.load(vectorizer_path)
+# Load the pre-trained model and vectorizer using Flask's app.config
+model = joblib.load(app.config['MODEL_PATH'])
+vectorizer = joblib.load(app.config['VECTORIZER_PATH'])
 
 @app.route('/')
 def home():
