@@ -7,6 +7,7 @@ environment.yml
 
 # Exclude Python cache files
 __pycache__/
+app/__pycache__/
 *.pyc
 *.pyo
 
