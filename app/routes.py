@@ -1,9 +1,9 @@
-from flask import Flask, request, render_template, current_app
+from flask import Flask, request, render_template, current_app,Blueprint
 import joblib
 import numpy as np
 
-# Import the Flask app instance from the create_app factory
-app = Flask(__name__)
+# Define a blueprint for the application
+app = Blueprint('main', __name__)
 
 # Load the pre-trained model and vectorizer using Flask's app.config
 model = joblib.load(app.config['MODEL_PATH'])
@@ -39,6 +39,3 @@ def predict():
         return render_template('index.html', prediction=prediction_result)
     except Exception as e:
         return render_template('index.html', error=str(e))
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5002)
