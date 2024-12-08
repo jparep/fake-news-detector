@@ -3,19 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fake News Detector</title>
+    <title>Fake News Detection</title>
+    <!-- Include Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <h1>Fake News Detection</h1>
-    <form action="/predict" method="post">
-        <label for="news-text">Enter news text:</label><br><br>
-        <textarea id="news-text" name="text" rows="10" cols="50"></textarea><br><br>
-        <input type="submit" value="Predict">
-    </form>
-    {% if prediction %}
-        <h2>Prediction:</h2>
-        <p>Label: {{ prediction['label'] }}</p>
-        <p>Probability: {{ prediction['probability'] }}</p>
-    {% endif %}
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-lg w-full">
+        <h1 class="text-2xl font-bold text-gray-800 text-center mb-6">Fake News Detection</h1>
+        <form action="/predict" method="post" class="space-y-6">
+            <!-- News Text Input -->
+            <div>
+                <label for="news-text" class="block text-gray-700 font-medium text-base">Enter news text:</label>
+                <textarea id="news-text" name="text" rows="5" required placeholder="Enter the news text here"
+                    class="mt-2 block w-full h-24 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-gray-50"></textarea>
+            </div>
+            <!-- Submit Button -->
+            <div>
+                <button type="submit"
+                    class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-200">
+                    Predict
+                </button>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
