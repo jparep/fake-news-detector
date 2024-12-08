@@ -1,25 +1,30 @@
-from flask import Flask, request, render_template, current_app,Blueprint
-import joblib
-import numpy as np
+from flask import Blueprint, render_template, request, current_app
 
-# Define a blueprint for the application
-app = Blueprint('main', __name__)
+# Define a blueprint
+main = Blueprint('main', __name__)
 
-# Load the pre-trained model and vectorizer using Flask's app.config
-model = joblib.load(app.config['MODEL_PATH'])
-vectorizer = joblib.load(app.config['VECTORIZER_PATH'])
-
-@app.route('/')
+@main.route('/')
 def home():
+    """
+    Render the home page.
+    """
     return render_template('index.html')
 
-@app.route('/predict', methods=['POST'])
+@main.route('/predict', methods=['POST'])
 def predict():
+    """
+    Handle prediction requests and return results.
+    """
     try:
-        text = request.form['text']
-        if not text.strip():
+        # Get input text from the form
+        text = request.form.get('text', '').strip()
+        if not text:
             raise ValueError("No input text provided.")
-        
+
+        # Access model and vectorizer from app configuration
+        model = current_app.config['MODEL']
+        vectorizer = current_app.config['VECTORIZER']
+
         # Vectorize the input text
         vectorized_text = vectorizer.transform([text])
 
@@ -31,11 +36,15 @@ def predict():
         label_map = {1: 'Fake News', 0: 'Real News'}
         prediction_label = label_map[prediction[0]]
 
+        # Prepare result
         prediction_result = {
             'label': prediction_label,
             'probability': prediction_proba[0].tolist()
         }
 
+        # Render template with prediction results
         return render_template('index.html', prediction=prediction_result)
     except Exception as e:
+        # Log error and return error message
+        current_app.logger.error(f"Prediction error: {e}")
         return render_template('index.html', error=str(e))
