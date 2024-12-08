@@ -6,14 +6,14 @@ main = Blueprint('main', __name__)
 @main.route('/')
 def home():
     """
-    Render the home page.
+    Render the home page with the input form.
     """
     return render_template('index.html')
 
 @main.route('/predict', methods=['POST'])
 def predict():
     """
-    Handle prediction requests and return results.
+    Handle prediction requests and return results on the result page.
     """
     try:
         # Get input text from the form
@@ -39,12 +39,12 @@ def predict():
         # Prepare result
         prediction_result = {
             'label': prediction_label,
-            'probability': prediction_proba[0].tolist()
+            'probability': f"{prediction_proba[0][prediction[0]] * 100:.2f}%"  # Format as a percentage
         }
 
-        # Render template with prediction results
-        return render_template('index.html', prediction=prediction_result)
+        # Render result.html with prediction results
+        return render_template('result.html', prediction=prediction_result)
     except Exception as e:
-        # Log error and return error message
+        # Log error and return to the home page with an error message
         current_app.logger.error(f"Prediction error: {e}")
         return render_template('index.html', error=str(e))
